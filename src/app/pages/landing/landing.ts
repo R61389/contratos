@@ -1,5 +1,6 @@
 import { Component, HostListener, signal } from '@angular/core';
 import { RevealDirective } from '../../shared/reveal.directive';
+import { ProviderCarousel } from './provider-carousel/provider-carousel';
 
 interface Category {
   name: string;
@@ -23,7 +24,7 @@ interface EventType {
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, ProviderCarousel],
   templateUrl: './landing.html',
 })
 export class Landing {
