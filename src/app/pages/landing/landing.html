@@ -1,0 +1,218 @@
+<div class="min-h-screen bg-surface-dark text-white/90">
+
+  <!-- Navigation Layer -->
+  <nav class="sticky top-0 z-50 transition-colors duration-300" [class.glass-nav]="scrolled()">
+    <div class="mx-auto flex h-[68px] max-w-[1180px] items-center justify-between px-8">
+      <div class="font-display text-[15px] font-extrabold tracking-tight text-white">
+        EventMarket<span class="text-[#F0B255]">·</span>Cochabamba
+      </div>
+      <div class="hidden gap-7 md:flex">
+        <a href="#categorias" class="text-[13px] font-semibold text-white/60 hover:text-white">Categorías</a>
+        <a href="#destacados" class="text-[13px] font-semibold text-white/60 hover:text-white">Proveedores</a>
+        <a href="#eventos" class="text-[13px] font-semibold text-white/60 hover:text-white">Eventos</a>
+        <a href="#testimonios" class="text-[13px] font-semibold text-white/60 hover:text-white">Testimonios</a>
+      </div>
+      <span class="chip !py-1.5 !text-[11px] text-[#F0B255]">Beta</span>
+    </div>
+  </nav>
+
+  <!-- Background + Ambient Layer -->
+  <section class="relative overflow-hidden pb-24 pt-28">
+    <div class="pointer-events-none absolute -left-32 -top-40 h-[520px] w-[520px] animate-floatA rounded-full bg-[#9B7BF0]/25 blur-[70px]"></div>
+    <div class="pointer-events-none absolute -bottom-52 -right-36 h-[600px] w-[600px] animate-floatB rounded-full bg-[#F0B255]/20 blur-[80px]"></div>
+    <div class="pointer-events-none absolute left-[44%] top-16 h-[6px] w-[6px] animate-floatB rounded-full bg-[#FB8C6A] shadow-[0_0_18px_5px_rgba(251,140,106,0.5)]"></div>
+    <div class="pointer-events-none absolute right-[22%] top-32 h-[8px] w-[8px] animate-floatB rounded-full bg-[#F0B255] shadow-[0_0_24px_6px_rgba(240,178,85,0.6)]"></div>
+
+    <div class="relative mx-auto max-w-[820px] px-8 text-center">
+      <p class="mb-5 text-[12px] font-bold uppercase tracking-[0.16em] text-[#F0B255]">La forma de organizar eventos en Cochabamba</p>
+      <h1 class="font-display text-[44px] font-bold leading-[1.1] tracking-tight text-white sm:text-[54px]">
+        Descubre, compara y reserva
+        <span class="bg-gradient-to-r from-[#F0B255] to-[#FB8C6A] bg-clip-text text-transparent">todo tu evento</span>
+        en un solo lugar.
+      </h1>
+      <p class="mx-auto mt-6 max-w-[620px] text-[17px] leading-relaxed text-white/60">
+        Música, catering, cervecería artesanal, fotografía, decoración, sonido, iluminación y salones — con la
+        densidad visual de un producto premium, no de un trámite.
+      </p>
+
+      <form class="card-glass mx-auto mt-10 flex max-w-[640px] items-center gap-3 !rounded-full !p-2.5" (submit)="$event.preventDefault()">
+        <label for="hero-search" class="sr-only">Buscar servicios para tu evento</label>
+        <input
+          id="hero-search"
+          type="text"
+          placeholder="Busca DJ, catering, salón para 150 personas..."
+          class="min-w-0 flex-1 bg-transparent px-4 py-2 text-[14px] text-white placeholder:text-white/35 focus:outline-none"
+        />
+        <button type="submit" class="btn-primary !px-6 !py-3">Buscar</button>
+      </form>
+
+      <div class="mt-6 flex flex-wrap justify-center gap-2">
+        @for (c of categories; track c.name) {
+          <span class="chip">{{ c.name }}</span>
+        }
+      </div>
+
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="#destacados" class="btn-primary">Explorar proveedores</a>
+        <a href="#categorias" class="btn-ghost">Cómo funciona</a>
+      </div>
+
+      <div class="mt-16 grid grid-cols-2 gap-6 sm:grid-cols-4">
+        @for (s of stats; track s.label) {
+          <div>
+            <div class="font-display text-2xl font-extrabold text-white">{{ s.value }}</div>
+            <div class="text-[12px] text-white/40">{{ s.label }}</div>
+          </div>
+        }
+      </div>
+      <p class="mt-3 text-[11px] text-white/25">Cifras ilustrativas — a reemplazar con datos reales de producción.</p>
+    </div>
+  </section>
+
+  <!-- Content Layer: Categorías -->
+  <section id="categorias" class="border-t border-border-dark/60 py-20">
+    <div class="mx-auto max-w-[1180px] px-8">
+      <p class="mb-8 text-[12px] font-bold uppercase tracking-[0.08em] text-white/35">Categorías</p>
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+        @for (c of categories; track c.name; let i = $index) {
+          <div appReveal [appRevealDelay]="i * 60"
+               class="card-glass flex flex-col items-center gap-3 text-center transition-transform duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_18px_36px_rgba(0,0,0,0.35)]">
+            @switch (c.icon) {
+              @case ('music') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-[#F0B255]"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              }
+              @case ('catering') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-[#FB8C6A]"><path d="M7 2v8a2 2 0 0 0 4 0V2M9 10v12M17 2c-1.4 1.8-2 3.6-2 6.5 0 1.8 1 2.9 2 2.9V22"/></svg>
+              }
+              @case ('beer') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-[#9B7BF0]"><path d="M5 8h10v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8Z"/><path d="M15 10h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"/><path d="M7 4h6l-1 4H8L7 4Z"/></svg>
+              }
+              @case ('camera') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-[#5FB6EF]"><path d="M4 8h3l2-2h6l2 2h3v11H4Z"/><circle cx="12" cy="13.5" r="3.5"/></svg>
+              }
+              @case ('decor') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-[#34D399]"><path d="M12 3v4M5 8l14 0M7 8l1.5 12h7L17 8"/></svg>
+              }
+              @default {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-white/70"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M8 16h5"/></svg>
+              }
+            }
+            <div class="text-[13px] font-medium text-white/80">{{ c.name }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Layer: Proveedores destacados (Bento) -->
+  <section id="destacados" class="border-t border-border-dark/60 py-20">
+    <div class="mx-auto max-w-[1180px] px-8">
+      <p class="mb-8 text-[12px] font-bold uppercase tracking-[0.08em] text-white/35">Proveedores destacados</p>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        @for (p of providers; track p.name; let i = $index) {
+          <div appReveal [appRevealDelay]="i * 70"
+               [class.sm:row-span-2]="p.featured"
+               [class.sm:col-span-1]="true"
+               class="card-glass flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_18px_36px_rgba(0,0,0,0.4)]"
+               [class]="p.featured ? 'bg-gradient-to-br from-[#9B7BF0]/15 to-white/[0.02]' : ''">
+            <div>
+              @if (p.featured) {
+                <span class="chip !border-[#F0B25580] !bg-[#F0B255]/15 !text-[#F0B255]">Destacado</span>
+              }
+              <h3 class="mt-3 font-display text-lg font-semibold text-white">{{ p.name }}</h3>
+              <p class="mt-1 text-[13px] text-white/45">{{ p.category }}</p>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <span class="flex gap-0.5 text-[#F0B255]">
+                @for (s of starsArray(p.rating); track $index) {
+                  <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5"><path d="M10 1l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.2L4.6 17.3l1.3-6L1.3 7.2l6.1-.6L10 1Z"/></svg>
+                }
+              </span>
+              <span class="text-[12px] text-white/40">{{ p.priceFrom }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Eventos populares -->
+  <section id="eventos" class="border-t border-border-dark/60 py-20">
+    <div class="mx-auto max-w-[1180px] px-8">
+      <p class="mb-8 text-[12px] font-bold uppercase tracking-[0.08em] text-white/35">Eventos populares</p>
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+        @for (e of events; track e.name) {
+          <div class="card-glass bg-gradient-to-br to-transparent transition-transform duration-300 ease-out hover:scale-[1.04]" [class]="e.gradient">
+            <div class="font-semibold text-white">{{ e.name }}</div>
+            <div class="mt-1 text-[12px] text-white/40">{{ e.guests }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios + Estadísticas -->
+  <section id="testimonios" class="border-t border-border-dark/60 py-20">
+    <div class="mx-auto grid max-w-[1180px] grid-cols-1 gap-8 px-8 md:grid-cols-2">
+      <div>
+        <p class="mb-8 text-[12px] font-bold uppercase tracking-[0.08em] text-white/35">Testimonios</p>
+        <div class="card-glass">
+          <p class="italic text-white/80">"[Cita breve del cliente sobre su experiencia organizando el evento]"</p>
+          <div class="mt-4 text-[13px] font-bold text-white">[Nombre del cliente]</div>
+          <div class="text-[12px] text-white/40">[Tipo de evento organizado]</div>
+        </div>
+      </div>
+      <div>
+        <p class="mb-8 text-[12px] font-bold uppercase tracking-[0.08em] text-white/35">Estadísticas</p>
+        <div class="grid grid-cols-2 gap-4">
+          @for (s of stats; track s.label) {
+            <div class="card-glass">
+              <div class="font-display text-xl font-extrabold text-white">{{ s.value }}</div>
+              <div class="text-[12px] text-white/40">{{ s.label }}</div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border-dark/60 py-16">
+    <div class="mx-auto max-w-[1180px] px-8">
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-4">
+        <div>
+          <div class="font-display text-[15px] font-extrabold text-white">EventMarket<span class="text-[#F0B255]">·</span>Cochabamba</div>
+          <p class="mt-3 text-[13px] text-white/40">La plataforma integral para organizar eventos sociales en Cochabamba.</p>
+        </div>
+        <div>
+          <h4 class="mb-3 text-[13px] font-bold text-white">Producto</h4>
+          <ul class="space-y-2 text-[13px] text-white/40">
+            <li>Buscar proveedores</li>
+            <li>Comparar servicios</li>
+            <li>Cotizador</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="mb-3 text-[13px] font-bold text-white">Proveedores</h4>
+          <ul class="space-y-2 text-[13px] text-white/40">
+            <li>Publicar mi servicio</li>
+            <li>Panel de proveedor</li>
+            <li>Precios</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="mb-3 text-[13px] font-bold text-white">Compañía</h4>
+          <ul class="space-y-2 text-[13px] text-white/40">
+            <li>Sobre nosotros</li>
+            <li>Términos</li>
+            <li>Privacidad</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 flex flex-col gap-2 border-t border-border-dark/60 pt-6 text-[12px] text-white/30 sm:flex-row sm:justify-between">
+        <span>© 2026 EventMarket Cochabamba</span>
+        <span>Hecho en Cochabamba, Bolivia</span>
+      </div>
+    </div>
+  </footer>
+</div>

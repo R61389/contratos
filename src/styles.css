@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #0B0B10;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Poppins', sans-serif;
+  }
+  ::selection {
+    background: #F0B255;
+    color: #1a1200;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .glass-nav {
+    @apply backdrop-blur-xl bg-surface-dark/60 border-b border-border-dark;
+  }
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-border-dark bg-surface-darkCard px-4 py-2 text-sm font-semibold text-white/90;
+  }
+  .card-glass {
+    @apply rounded-lg border border-border-dark bg-surface-darkCard p-7;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-bold text-[15px] min-h-[44px]
+           bg-gradient-to-br from-[#F0B255] to-[#FB8C6A] text-[#1a1200]
+           transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(240,178,85,0.28)];
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-bold text-[15px] min-h-[44px]
+           border border-border-dark text-white bg-transparent
+           transition-all duration-300 ease-out hover:bg-white/5;
+  }
+  .reveal {
+    @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
+  }
+  .reveal-visible {
+    @apply opacity-100 translate-y-0;
+  }
+}
